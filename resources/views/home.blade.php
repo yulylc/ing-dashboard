@@ -15,6 +15,7 @@
                     @endif
                     {{ __('You are logged in!') }} --}}
                     {{-- Mi codigo comienza aqui --}}
+                    <a class="btn btn-warning" href="{{ route('users.create')}}">Nuevo</a>
                 </div>
             </div>
         </div>
