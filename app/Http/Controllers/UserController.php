@@ -19,7 +19,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $usuarios = User::paginate(5); //revisar luego si ordenar
+        //$usuarios = User::all();   
+        $usuarios = User::paginate(15); //revisar luego si ordenar
         return view('usuarios.index', compact('usuarios')); 
            
     }
@@ -127,5 +128,10 @@ class UserController extends Controller
     {
         User::find($id)->delete();
         return redirect()->route('usuarios.index');
+    }
+
+    public function editAvatar(User $user)
+    {
+        return view('users.edit_avatar', compact('user'));
     }
 }

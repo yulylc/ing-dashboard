@@ -45,12 +45,12 @@ return [
     |
     */
 
-    'logo' => '<b>Ingenius</b>PRO', //buscar Logo
-    'logo_img' => 'vendor/adminlte/dist/img/faviconing.png',
+    'logo' => '<b>Admin</b>LTE',
+    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Ingenius',
+    'logo_img_alt' => 'AdminLTE',
 
     /*
     |--------------------------------------------------------------------------
@@ -127,9 +127,9 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-light-primary elevation-4',
+    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-dark navbar-light',
+    'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
@@ -228,7 +228,7 @@ return [
         // Navbar items:
         [
             'type'         => 'navbar-search',
-            'text'         => 'Buscar',
+            'text'         => 'search',
             'topnav_right' => true,
         ],
         [
@@ -239,33 +239,19 @@ return [
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
-            'text' => 'Buscar',
+            'text' => 'search',
         ],
         [
-            'text' => 'Dashboard',
-            //'url'  => 'admin/blog',
-            'route' => 'home',
+            'text' => 'blog',
+            'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'Usuarios',
-            //'url'         => 'admin/pages',
-            'route'       => 'usuarios.index',
-            'icon'        => 'fas fa-fw fa-users',
-        ],
-        [
-            'text'        => 'Roles',
-            //'url'         => 'admin/pages',
-            'route'       => 'roles.index',
-            'icon'        => 'fas fa-fw fa-users-cog',
-
-        ],
-        [
-            'text'        => 'Candidatos',
-            // //'url'         => 'admin/pages',
-            'route'       => 'candidatos.index',
-            'icon'        => 'fas fa-fw fa-users-cog',
-
+            'text'        => 'pages',
+            'url'         => 'admin/pages',
+            'icon'        => 'far fa-fw fa-file',
+            'label'       => 4,
+            'label_color' => 'success',
         ],
         ['header' => 'account_settings'],
         [
@@ -279,15 +265,15 @@ return [
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
-            'text'    => 'Candidatos',
+            'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
                 [
-                    'text' => 'Crear solicitud',
-                    'route' => 'candidatos.index',
+                    'text' => 'level_one',
+                    'url'  => '#',
                 ],
                 [
-                    'text'    => 'Editar solicitud',
+                    'text'    => 'level_one',
                     'url'     => '#',
                     'submenu' => [
                         [

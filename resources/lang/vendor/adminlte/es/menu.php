@@ -5,6 +5,8 @@ return [
     'main_navigation'               => 'MENU PRINCIPAL',
     'blog'                          => 'Blog',
     'pages'                         => 'Páginas',
+    // 'pages'                         => 'Páginas',
+    // 'pages'                         => 'Páginas',
     'account_settings'              => 'AJUSTES DE LA CUENTA',
     'profile'                       => 'Perfil',
     'change_password'               => 'Cambiar Contraseña',

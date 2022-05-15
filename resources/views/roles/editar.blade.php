@@ -1,14 +1,12 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+@section('title', 'Dashboard')
+
+@section('content_header')
+    <h1>Insertar Rol</h1>
+@stop
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Editar Roles') }}</div>
-
-                <div class="card-body">
-                    
                     {{-- Mi codigo comienza aqui --}}
                   
                     {{-- Validation --}}
@@ -50,11 +48,5 @@
                     </div>
                     {!! Form::close() !!}
                     {{-- Mi codigo termina aqui --}}
-                    
-                  
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+@stop
+

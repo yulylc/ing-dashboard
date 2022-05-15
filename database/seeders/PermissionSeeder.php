@@ -18,10 +18,13 @@ class PermissionSeeder extends Seeder
     {
          $permisos = [
              //permisos para la tabla roles
-             'Mostrar rol',
-             'Crear rol',
-             'Editar rol',
-             'Borrar rol',                
+             'Ver rol',
+             'crear-rol',
+             'editar-rol',
+             'borrar-rol',
+             //permisos para la tabla candidatos
+             
+                             
          ];
     
          foreach($permisos as $permiso){

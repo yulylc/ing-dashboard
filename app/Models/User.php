@@ -13,8 +13,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
-    use HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    
 
     /**
      * The attributes that are mass assignable.
@@ -45,4 +45,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function profile(){
+        // $profile = Profile::where('user_id', $this->id)->first(); 
+        // return $profile;
+
+        // return $this->hasOne(Profile::class); 
+
+        return $this->hasOne('App\Models\Profile');
+
+    }
 }
