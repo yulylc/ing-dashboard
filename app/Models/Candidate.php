@@ -13,7 +13,7 @@ class Candidate extends Model
         'name',
         'apellidos',
 		'ci',
-        'resumen'
+        'resumen',
         'email',
     ];
 

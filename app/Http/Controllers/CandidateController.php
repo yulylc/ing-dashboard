@@ -48,10 +48,10 @@ class CandidateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Candidate $candidate)
+    public function show(Candidate $candidates)
     {
         $candidates = Candidate::all();
-        return view('candidatos.show', compact('candidate'));
+        return view('candidatos.show', compact('candidates'));
     }
 
     /**
@@ -60,9 +60,12 @@ class CandidateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Candidate $candidate)
+    public function edit($id) //pasar id
     {    
-        return view('candidatos.editar');
+        $candidate = Candidate::find($id);
+        $tecnologias = Technology::all();
+        //$candidatoskills = $candidate->technologies()->pluck('name');
+        return view('candidatos.editar', compact('candidate', 'tecnologias'));
     }
 
     /**

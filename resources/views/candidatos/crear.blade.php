@@ -59,11 +59,10 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <label for="text">Resumen</label>
-                        {!! Form::textarea('resumen', null, 
-                        ['class' => 'form-control input', 'cols' => 20, 'rows' =>4, 'required' => '', 'maxlength' => "250"]) !!}
+                        {!! Form::textarea('resumen', null, ['class' => 'form-control input', 'cols' => 20, 'rows' => 4, 'required' => '', 'maxlength' => '250']) !!}
                     </div>
                 </div>
-            
+
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <label for="">Enviar Curriculum Vitae</label>
@@ -71,10 +70,10 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                </br>
+                    </br>
                     <div class="form-group">
                         <label for="">Skills & Techs</label>
-                    </br>
+                        </br>
                         @foreach ($tecnologias as $value)
                             <label>{{ Form::checkbox('tecnologias[]', $value->id, false, ['class' => 'name']) }}
                                 {{ $value->name }}</label>

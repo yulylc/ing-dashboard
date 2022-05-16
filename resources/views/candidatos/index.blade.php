@@ -7,11 +7,11 @@
 @stop
 
 @section('content')
- {{-- Mi codigo comienza aqui --}}
- <div class="card">
-    <div class="card-header">
-        <input class="form-control" placeholder="Ingrese el nombre o correo del un usuario">    
-    </div>
+    {{-- Mi codigo comienza aqui --}}
+    <div class="card">
+        <div class="card-header">
+            <input class="form-control" placeholder="Ingrese el nombre o correo del un usuario">
+        </div>
         <div class="card-body">
 
             <a class="btn btn-primary" href="{{ route('candidatos.create') }}">Llenar solicitud</a>
@@ -33,13 +33,13 @@
                             <td>{{ $candidate->name }}</td>
                             <td>{{ $candidate->email }}</td>
                             <td>
-                               {{-- {{ $candidate->technologies->pluck('name')}} --}}
+                                {{-- {{ $candidate->technologies->pluck('name')}} --}}
                                 @foreach ($candidate->technologies as $tecnologia)
-                                    {{$tecnologia->name}}
+                                    {{ $tecnologia->name }}
                                 @endforeach
                             </td>
                             <td>
-                                <a href="">Editar</a>
+                                <a class="btn btn-info" href="{{ route('candidatos.edit', $candidate->id) }}">Editar</a>
                             </td>
                             <td>
                                 <a href="">Eliminar</a>
@@ -49,7 +49,7 @@
                 </tbody>
             </table>
         </div>
-        
+
         <div class="pagination justify-content-end">
             {!! $candidates->links() !!}
         </div>
