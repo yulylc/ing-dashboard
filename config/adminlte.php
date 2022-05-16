@@ -264,10 +264,10 @@ return [
             'text'        => 'Candidatos',
             // //'url'         => 'admin/pages',
             'route'       => 'candidatos.index',
-            'icon'        => 'fas fa-fw fa-users-cog',
+            'icon'        => 'fas fa-fw fa-user-plus',
 
         ],
-        ['header' => 'account_settings'],
+       /*  ['header' => 'account_settings'],
         [
             'text' => 'profile',
             'url'  => 'admin/settings',
@@ -315,7 +315,7 @@ return [
                     'url'  => '#',
                 ],
             ],
-        ],
+        ], */
         ['header' => 'labels'],
         [
             'text'       => 'important',

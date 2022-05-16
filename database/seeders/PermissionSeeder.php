@@ -23,6 +23,11 @@ class PermissionSeeder extends Seeder
              'editar-rol',
              'borrar-rol',
              //permisos para la tabla candidatos
+             'Ver Solicitudes',
+             'Crear Solicitud',
+             'Editar Solicitud',
+             'Eliminar Solicitud'
+              //permisos para la tabla tecnologias
              
                              
          ];

@@ -20,9 +20,10 @@ class CreateCandidatesTable extends Migration
             $table->string('apellidos');
             $table->string('ci', 11)->nullable();
             $table->string('email')->unique();
+            $table->text('resumen')->nullable();
             $table->string('telefono1')->nullable();
             $table->string('telefono2')->nullable();
-            $table->text('resumen')->nullable();
+            
            // $table->string('direccion'); //revisar
             
             //como subo el curriculum? buscar file upload en bibliografia de laravel

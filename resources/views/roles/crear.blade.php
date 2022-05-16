@@ -42,6 +42,7 @@
                             <div class="form-group">
                                 <label for="">Permisos del Rol</label>
                             <br/>
+                                {{-- En el front Select all --}}
                             @foreach ($permission as $value)
                                 <label>{{ Form::checkbox('permission[]', $value->id, false, array('class'=> 'name'))}}
                                 {{ $value->name }}</label> 

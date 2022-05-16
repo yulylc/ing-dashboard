@@ -58,6 +58,21 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
+                        <label for="text">Resumen</label>
+                        {!! Form::textarea('resumen', null, 
+                        ['class' => 'form-control input', 'cols' => 20, 'rows' =>4, 'required' => '', 'maxlength' => "250"]) !!}
+                    </div>
+                </div>
+            
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <label for="">Enviar Curriculum Vitae</label>
+                        {!! Form::file('CV', ['class' => 'form-control']) !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                </br>
+                    <div class="form-group">
                         <label for="">Skills & Techs</label>
                     </br>
                         @foreach ($tecnologias as $value)
@@ -67,7 +82,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>

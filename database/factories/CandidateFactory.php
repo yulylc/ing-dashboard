@@ -19,8 +19,10 @@ class CandidateFactory extends Factory
         return [
             'name' => $this->faker->name(15),
             'apellidos'=> $this->faker->lastName(40),
-            'email' => $this->faker->unique()->email(),
             //'ci' => $this->faker->(11),
+            'email' => $this->faker->unique()->email(),
+            'resumen' => $this->faker->text(250),
+            
             
             //'fechadesolicitud' => $this->faker->date(),
 
