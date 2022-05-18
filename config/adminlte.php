@@ -267,6 +267,13 @@ return [
             'icon'        => 'fas fa-fw fa-user-plus',
 
         ],
+        [
+            'text'        => 'Skills',
+            // //'url'         => 'admin/pages',
+            'route'       => 'tecnologias.index',
+            'icon'        => 'fas fa-fw fa-laptop',
+
+        ],
        /*  ['header' => 'account_settings'],
         [
             'text' => 'profile',

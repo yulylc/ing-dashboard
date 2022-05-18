@@ -34,8 +34,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <label for="apellido1">Apellidos</label>
-                        {!! Form::text('apellido', null, ['class' => 'form-control']) !!}
+                        <label for="apellidos">Apellidos</label>
+                        {!! Form::text('apellidos', null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -58,15 +58,14 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <label for="text">Resumen</label>
+                        <label for="resumen">Resumen</label>
                         {!! Form::textarea('resumen', null, ['class' => 'form-control input', 'cols' => 20, 'rows' => 4, 'required' => '', 'maxlength' => '250']) !!}
                     </div>
                 </div>
-
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <label for="">Enviar Curriculum Vitae</label>
-                        {!! Form::file('CV', ['class' => 'form-control']) !!}
+                        <label for="cv">Enviar Curriculum Vitae (No funcional aun)</label>
+                        {!! Form::file('cv', ['class' => 'form-control']) !!}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -74,13 +73,14 @@
                     <div class="form-group">
                         <label for="">Skills & Techs</label>
                         </br>
+                        {{-- Shows only skills and techs, wanna add chose the experience too --}}
                         @foreach ($tecnologias as $value)
-                            <label>{{ Form::checkbox('tecnologias[]', $value->id, false, ['class' => 'name']) }}
+                            <label>{{ Form::checkbox('tecnologias[]', $value->id, null, ['class' => 'mr-1']) }}
                                 {{ $value->name }}</label>
                             </br>
-                        @endforeach
+                        @endforeach 
                     </div>
-                </div>
+                </div> 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>

@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Candidate;
 use App\Models\Technology;
 use Prophecy\Call\Call;
+use Illuminate\Support\Facades\Storage;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Arr;
 
 class CandidateController extends Controller
 {
@@ -39,7 +44,29 @@ class CandidateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'apellidos'=>'required',
+            'email'=>'required|email|unique:users,email',
+            'password'=>'required|same:confirm-password',
+        ]);
+        
+        
+        // $request->validate ([
+        //     'name'=>'required',
+        //     'apellidos'=>'required',
+        //     'email'=>'required|email|unique:users,email',
+        //     'password'=>'required|same:confirm-password',
+        //     //'cv'=>'max:3000','mimes:pdf,docx,doc',
+        // ]);
+
+        $candidato = Candidate::create($request->all());
+        $candidato->technologies()->sync($request->tecnologias);
+           
+        //return redirect()->route('candidatos.index');
+        return redirect()->route('candidatos.edit', $candidato)->with('info','Solicitud creada con éxito');
+        
+
     }
 
     /**
@@ -48,11 +75,9 @@ class CandidateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Candidate $candidates)
-    {
-        $candidates = Candidate::all();
-        return view('candidatos.show', compact('candidates'));
-    }
+    // public function show(Candidate $candidates)
+    // {
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -60,12 +85,11 @@ class CandidateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) //pasar id
+    public function edit(Candidate $candidato)
     {    
-        $candidate = Candidate::find($id);
         $tecnologias = Technology::all();
         //$candidatoskills = $candidate->technologies()->pluck('name');
-        return view('candidatos.editar', compact('candidate', 'tecnologias'));
+        return view('candidatos.editar', compact('candidato', 'tecnologias'));
     }
 
     /**
@@ -75,9 +99,19 @@ class CandidateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Candidate $candidate)
+    public function update(Request $request, Candidate $candidato)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'apellidos'=>'required',
+            'email'=>'required|email|unique:users,email',
+            'password'=>'required|same:confirm-password',
+        ]);
+
+        $candidato->update($request->all());
+        $candidato->technologies()->sync($request->tecnologias);
+        return redirect()->route('candidatos.edit', $candidato)
+                         ->with('info', 'La solicitud se actualizó con éxito');
     }
 
     /**
@@ -86,8 +120,11 @@ class CandidateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Candidate $candidate)
+    public function destroy(Candidate $candidato)
     {
-        
+        $candidato->delete();
+
+        return redirect()->route('candidatos.index')->with('info', 'La solicitud se ha eliminado satisfactoriamente');
     }
+    
 }

@@ -7,12 +7,16 @@
 @stop
 
 @section('content')
+    @if (session('info'))
+        <div class="alert alert-success">
+            <strong>{{ session('info') }}</strong>
+        </div>
+    @endif
+
     <div class="card">
         <div class="card-body">
             {{-- Mi codigo comienza aqui --}}
-
             {{-- Validation --}}
-
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <strong>Ops!</strong> Revise los datos por favor.<br><br>
@@ -23,8 +27,7 @@
                     </ul>
                 </div>
             @endif
-            {!! Form::model($candidate, ['method' => 'PUT', 'route' => ['candidatos.update', $candidate->id]]) !!}
-            {{-- {!! Form::open(['route' => 'candidatos.update', 'method' => 'PUT']) !!} --}}
+            {!! Form::model($candidato, ['method' => 'PUT', 'route' => ['candidatos.update', $candidato->id]]) !!}
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
@@ -34,8 +37,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <label for="apellido1">Apellidos</label>
-                        {!! Form::text('apellido', null, ['class' => 'form-control']) !!}
+                        <label for="apellidos">Apellidos</label>
+                        {!! Form::text('apellidos', null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -72,19 +75,22 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     </br>
                     <div class="form-group">
-                        <label for="">Skills & Techs</label>
+                        <label for="">Tecnologias y Habilidades</label>
                         </br>
                         {{-- Esto lo arreglo con js --}}
-                        @foreach ($candidate->technologies as $tecnologia)
+                        @foreach ($candidato->technologies as $tecnologia)
                             @foreach ($tecnologias as $value)
                                 @if ($tecnologia->id == $value->id)
                                     <label>{{ Form::checkbox('tecnologias[]', $value->id, true, ['class' => 'name']) }}
                                         {{ $value->name }}</label>
                                     </br>
                                 @else
-                                    <label>{{ Form::checkbox('tecnologias[]', $value->id, false, ['class' => 'name']) }}
-                                        {{ $value->name }}</label>
-                                    </br>
+                                    <div>
+                                        <label>{{ Form::checkbox('tecnologias[]', $value->id, null, ['class' => 'mr-1']) }}
+                                            {{ $value->name }}
+                                        </label>
+                                        </br>
+                                    </div>
                                 @endif
                             @endforeach
                         @endforeach
@@ -92,15 +98,11 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    {{-- <button type="submit" class="btn btn-primary">Guardar</button> --}}
+                    {!! Form::submit('Actualizar Solicitud', ['class' => 'btn btn-primary']) !!}
                 </div>
             </div>
             {!! Form::close() !!}
-
         </div>
-
-        {{-- {{ $candidatoskills }} --}}
-
-        {{ $tecnologias->pluck('id', 'name') }}
     </div>
 @stop

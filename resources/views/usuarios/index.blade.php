@@ -40,11 +40,16 @@
                             </td>
 
                             <td>
+                                @can('Editar Usuario')
                                 <a class="btn btn-info" href="{{ route('usuarios.edit', $usuario->id) }}">Editar</a>
+                                @endcan
 
+                                @can('Eliminar Usuario')
                                 {!! Form::open(['method' => 'DELETE', 'route' => ['usuarios.destroy', $usuario->id], 'style' => 'display:inline']) !!}
                                 {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
+                                @endcan
                                 {!! Form::close() !!}
+
                             </td>
                         </tr>
                     @endforeach

@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\TechnologyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +32,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['middleware' => ['auth']], function(){
     Route::resource('roles', RoleController::class);
     Route::resource('usuarios', UserController::class);
-    Route::resource('profiles', ProfileController::class);
     Route::resource('candidatos', CandidateController::class);
+    Route::resource('tecnologias', TechnologyController::class);
+    //Route::get('tecnologias/experience', [App\Http\Controllers\TechnologyController::class, 'experience'])->name('tecnologias.experience');
+    //ponerle prefijo admin luego
 });
+
 
 
 

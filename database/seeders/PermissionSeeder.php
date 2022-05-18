@@ -22,14 +22,18 @@ class PermissionSeeder extends Seeder
              'crear-rol',
              'editar-rol',
              'borrar-rol',
-             //permisos para la tabla candidatos
-             'Ver Solicitudes',
-             'Crear Solicitud',
-             'Editar Solicitud',
-             'Eliminar Solicitud'
-              //permisos para la tabla tecnologias
-             
-                             
+            //  //permisos para la tabla candidatos
+            //  'Listar Solicitudes',
+            //  'Crear Solicitud',
+            //  'Editar Solicitud',
+            //  'Eliminar Solicitud',
+            //   //permisos para la tabla tecnologias
+            //   //permisos para la tabla usuarios
+            //   'Listar Usuarios',
+            //   'Insertar Usuario',
+            //   'Editar Usuario',
+            //   'Eliminar Usuario',
+                          
          ];
     
          foreach($permisos as $permiso){

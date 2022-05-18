@@ -8,12 +8,17 @@
 
 @section('content')
     {{-- Mi codigo comienza aqui --}}
+    @if (session('info'))
+        <div class="alert alert-success">
+            <strong>{{ session('info') }}</strong>
+        </div>
+    @endif
+
     <div class="card">
         <div class="card-header">
             <input class="form-control" placeholder="Ingrese el nombre o correo del un usuario">
         </div>
         <div class="card-body">
-
             <a class="btn btn-primary" href="{{ route('candidatos.create') }}">Llenar solicitud</a>
             {{-- Esta opcion no va a aqui, solo probando --}}
             <table class="table table-striped">
@@ -23,7 +28,7 @@
                         <th>Nombre</th>
                         <th>Email</th>
                         <th>Skills</th>
-                        <th colspan="2"></th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,9 +45,12 @@
                             </td>
                             <td>
                                 <a class="btn btn-info" href="{{ route('candidatos.edit', $candidate->id) }}">Editar</a>
-                            </td>
-                            <td>
-                                <a href="">Eliminar</a>
+
+                                @can('Eliminar candidato')
+                                {!! Form::open(['method' => 'DELETE', 'route' => ['candidatos.destroy', $candidate->id], 'style' => 'display:inline']) !!}
+                                {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
+                                @endcan
+                                {!! Form::close() !!}
                             </td>
                         </tr>
                     @endforeach

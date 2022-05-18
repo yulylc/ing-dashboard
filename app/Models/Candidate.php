@@ -15,6 +15,9 @@ class Candidate extends Model
 		'ci',
         'resumen',
         'email',
+        'escolaridad',
+        'cv',
+        
     ];
 
     //Relacion m-m
