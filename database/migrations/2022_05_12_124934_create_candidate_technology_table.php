@@ -23,6 +23,8 @@ class CreateCandidateTechnologyTable extends Migration
             $table->foreign('candidate_id')->references('id')->on('candidates')->onDelete('cascade');
             $table->foreign('technology_id')->references('id')->on('technologies')->onDelete('cascade');
 
+            $table->string('experiencia')->nullable(); //de momento nullable
+
             $table->timestamps();
             
         });

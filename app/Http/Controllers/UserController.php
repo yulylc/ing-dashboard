@@ -130,8 +130,11 @@ class UserController extends Controller
         return redirect()->route('usuarios.index');
     }
 
-    public function editAvatar(User $user)
+    public function editAvatar(Request $request, User $user)
     {
+        $this->validate($request, [
+            'avatar' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+          ]);
         return view('users.edit_avatar', compact('user'));
     }
 }

@@ -12,17 +12,27 @@ class Candidate extends Model
     protected $fillable = [
         'name',
         'apellidos',
-		'ci',
+        'ci',
         'resumen',
         'email',
-        'escolaridad',
         'cv',
-        
     ];
 
+    public function request_status()
+    {
+        return $this->belongsTo('App\Models\RequestSatus');
+    }
+
+    /*  public function grado()
+    {
+        return $this->belongsTo('App\Models\Grado');
+    }     */
     //Relacion m-m
     public function technologies()
     {
         return $this->belongsToMany('App\Models\Technology');
     }
+
+    //Relacion uno a muchos (inversa)
+
 }

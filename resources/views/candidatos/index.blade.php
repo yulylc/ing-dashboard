@@ -28,6 +28,7 @@
                         <th>Nombre</th>
                         <th>Email</th>
                         <th>Skills</th>
+                        <th>Curriculum</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -43,6 +44,7 @@
                                     {{ $tecnologia->name }}
                                 @endforeach
                             </td>
+                            <td>{{ 'link cv' }}</td>
                             <td>
                                 <a class="btn btn-info" href="{{ route('candidatos.edit', $candidate->id) }}">Editar</a>
 

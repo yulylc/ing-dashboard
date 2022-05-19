@@ -23,12 +23,15 @@ class CreateCandidatesTable extends Migration
             $table->text('resumen')->nullable();
             $table->string('telefono1')->nullable();
             $table->string('telefono2')->nullable();
-            $table->string('escolaridad')->nullable();
+            $table->string('cv')->nullable();
+            //$table->string('escolaridad')->nullable();
+            //$table->unsignedBigInteger('grado_id'); 
+            //$table->unsignedBigInteger('estado_id');
            // $table->string('direccion'); //revisar
             
-            //como subo el curriculum? buscar file upload en bibliografia de laravel
-            $table->string('cv')->nullable();
-           
+            //$table->foreign('grado_id')->references('id')->on('grados')->onDelete('set null');
+           // $table->foreign('estado_id')->references('id')->on('estados')->onDelete('set null');
+            $table->enum('status', ['Pending', 'Wait', 'Active'])->default('Pending');
             $table->timestamps();
         });
     }

@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\TechnologyController;
+use App\Http\Controllers\FileUploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('usuarios', UserController::class);
     Route::resource('candidatos', CandidateController::class);
     Route::resource('tecnologias', TechnologyController::class);
+    //Route::get('fileupload', [FileUploadController::class, 'index']);
+    //Route::post('store', [FileUploadController::class, 'store']);
     //Route::get('tecnologias/experience', [App\Http\Controllers\TechnologyController::class, 'experience'])->name('tecnologias.experience');
     //ponerle prefijo admin luego
 });

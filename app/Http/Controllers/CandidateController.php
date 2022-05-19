@@ -44,24 +44,18 @@ class CandidateController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'apellidos'=>'required',
-            'email'=>'required|email|unique:users,email',
-            'password'=>'required|same:confirm-password',
+        
+         $request->validate ([
+             'name'=>'required',
+             'apellidos'=>'required',
+             'email'=>'required|email|unique:users,email',
+             'password'=>'required|same:confirm-password',
+             'cv'=>'max:3072','mimes:pdf,docx,doc',
         ]);
-        
-        
-        // $request->validate ([
-        //     'name'=>'required',
-        //     'apellidos'=>'required',
-        //     'email'=>'required|email|unique:users,email',
-        //     'password'=>'required|same:confirm-password',
-        //     //'cv'=>'max:3000','mimes:pdf,docx,doc',
-        // ]);
 
         $candidato = Candidate::create($request->all());
         $candidato->technologies()->sync($request->tecnologias);
+        // $path = $request->file('file')->store('public/files');
            
         //return redirect()->route('candidatos.index');
         return redirect()->route('candidatos.edit', $candidato)->with('info','Solicitud creada con éxito');

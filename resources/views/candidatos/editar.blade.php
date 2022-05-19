@@ -16,7 +16,7 @@
     <div class="card">
         <div class="card-body">
             {{-- Mi codigo comienza aqui --}}
-            {{-- Validation --}}
+            {{-- Validation--}}
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <strong>Ops!</strong> Revise los datos por favor.<br><br>
