@@ -55,12 +55,26 @@ class CandidateController extends Controller
         $candidato = Candidate::create($request->all());
         $candidato->technologies()->sync($request->tecnologias);
 
+       /*  if ($request->hasFile('cv')) {
+        $filename = $request->cv->getClientOriginalName();  
+        $candidato['cv'] = $request->file('cv')->storeAs('cv', $filename, 'public');
+        $request->file('cv')->storeAs('cv', $filename);
+        } */
+
+        /*
+        Another way
         if ($request->hasFile('cv')) {
-            $filename = $request->cv->getClientOriginalName();
-            //$candidato['cv'] = $request->file('cv')->storeAs('cv', $filename, 'public');
-            $request->file('cv')->storeAs('cv', $filename, 'public');
-            
+        $candidato['cv'] = $request->file('cv')->store('cv1');
         }
+        */
+
+        
+       // Another way
+        if ($request->hasFile('cv')) {
+        $candidato['cv'] = $request->file('cv')->getClientOriginalName();
+        $request->file('cv')->storeAs('cv', $candidato['cv']);
+        }
+       
         //if ($request->hasFile())
         //return redirect()->route('candidatos.index');
         return redirect()->route('candidatos.edit', $candidato)->with('info', 'Solicitud creada con éxito');
