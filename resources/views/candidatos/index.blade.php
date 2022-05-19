@@ -44,9 +44,9 @@
                                     {{ $tecnologia->name }}
                                 @endforeach
                             </td>
-                            <td>{{ 'link cv' }}</td>
+                            <td>{{ $candidate->cv }}</td>
                             <td>
-                                <a class="btn btn-info" href="{{ route('candidatos.edit', $candidate->id) }}">Editar</a>
+                                <a class="btn btn-info" style="display: inline" href="{{ route('candidatos.edit', $candidate->id) }}">Editar</a>
 
                                 @can('Eliminar candidato')
                                 {!! Form::open(['method' => 'DELETE', 'route' => ['candidatos.destroy', $candidate->id], 'style' => 'display:inline']) !!}

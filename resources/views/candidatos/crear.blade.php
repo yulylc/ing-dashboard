@@ -24,7 +24,7 @@
                 </div>
             @endif
     {{-- Revisar creo que si pongo el files true, no tengo que agregar el enctype --}}
-            {!! Form::open(['route' => 'candidatos.store', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'files' => true]) !!}
+            {!! Form::open(['route' => 'candidatos.store', 'method' => 'POST', 'files' => true]) !!}
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <div class="form-group">

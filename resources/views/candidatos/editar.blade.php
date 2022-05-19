@@ -27,7 +27,7 @@
                     </ul>
                 </div>
             @endif
-            {!! Form::model($candidato, ['method' => 'PUT', 'route' => ['candidatos.update', $candidato->id]]) !!}
+            {!! Form::model($candidato, ['method' => 'PUT', 'route' => ['candidatos.update', $candidato->id, 'files' => true]]) !!}
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
@@ -68,8 +68,8 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <label for="">Enviar Curriculum Vitae</label>
-                        {!! Form::file('CV', ['class' => 'form-control']) !!}
+                        <label for="cv">Enviar Curriculum Vitae</label>
+                        {!! Form::file('cv', ['class' => 'form-control']) !!}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">

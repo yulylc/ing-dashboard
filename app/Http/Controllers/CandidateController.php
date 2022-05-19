@@ -44,23 +44,26 @@ class CandidateController extends Controller
      */
     public function store(Request $request)
     {
-        
-         $request->validate ([
-             'name'=>'required',
-             'apellidos'=>'required',
-             'email'=>'required|email|unique:users,email',
-             'password'=>'required|same:confirm-password',
-             'cv'=>'max:3072','mimes:pdf,docx,doc',
+        $request->validate([
+            'name' => 'required',
+            'apellidos' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|same:confirm-password',
+            'cv' => 'required|mimes:pdf,docx,doc|max:4096',
         ]);
 
         $candidato = Candidate::create($request->all());
         $candidato->technologies()->sync($request->tecnologias);
-        // $path = $request->file('file')->store('public/files');
-           
-        //return redirect()->route('candidatos.index');
-        return redirect()->route('candidatos.edit', $candidato)->with('info','Solicitud creada con éxito');
-        
 
+        if ($request->hasFile('cv')) {
+            $filename = $request->cv->getClientOriginalName();
+            //$candidato['cv'] = $request->file('cv')->storeAs('cv', $filename, 'public');
+            $request->file('cv')->storeAs('cv', $filename, 'public');
+            
+        }
+        //if ($request->hasFile())
+        //return redirect()->route('candidatos.index');
+        return redirect()->route('candidatos.edit', $candidato)->with('info', 'Solicitud creada con éxito');
     }
 
     /**
@@ -80,7 +83,7 @@ class CandidateController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Candidate $candidato)
-    {    
+    {
         $tecnologias = Technology::all();
         //$candidatoskills = $candidate->technologies()->pluck('name');
         return view('candidatos.editar', compact('candidato', 'tecnologias'));
@@ -95,17 +98,23 @@ class CandidateController extends Controller
      */
     public function update(Request $request, Candidate $candidato)
     {
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required',
-            'apellidos'=>'required',
-            'email'=>'required|email|unique:users,email',
-            'password'=>'required|same:confirm-password',
+            'apellidos' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|same:confirm-password',
+            'cv' => 'required|mimes:pdf,docx,doc|max:4096',
         ]);
 
         $candidato->update($request->all());
         $candidato->technologies()->sync($request->tecnologias);
+
+        if ($request->hasFile('cv')) {
+            $filename = $request->cv->getClientOriginalName();
+            $request->file('cv')->storeAs('cv', $filename, 'public');
+        }
         return redirect()->route('candidatos.edit', $candidato)
-                         ->with('info', 'La solicitud se actualizó con éxito');
+            ->with('info', 'La solicitud se actualizó con éxito');
     }
 
     /**
@@ -120,5 +129,4 @@ class CandidateController extends Controller
 
         return redirect()->route('candidatos.index')->with('info', 'La solicitud se ha eliminado satisfactoriamente');
     }
-    
 }
