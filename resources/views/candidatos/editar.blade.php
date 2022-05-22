@@ -16,7 +16,7 @@
     <div class="card">
         <div class="card-body">
             {{-- Mi codigo comienza aqui --}}
-            {{-- Validation--}}
+            {{-- Validation --}}
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <strong>Ops!</strong> Revise los datos por favor.<br><br>
@@ -27,7 +27,7 @@
                     </ul>
                 </div>
             @endif
-            {!! Form::model($candidato, ['method' => 'PUT', 'route' => ['candidatos.update', $candidato->id, 'files' => true]]) !!}
+            {!! Form::model($candidato, ['route' => ['candidatos.update', $candidato->id, 'files' => true], 'method' => 'PUT']) !!}
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
@@ -65,44 +65,49 @@
                         {!! Form::textarea('resumen', null, ['class' => 'form-control input', 'cols' => 20, 'rows' => 4, 'required' => '', 'maxlength' => '250']) !!}
                     </div>
                 </div>
-
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <label for="cv">Enviar Curriculum Vitae</label>
+                        <label for="cv">Subir CV</label>
                         {!! Form::file('cv', ['class' => 'form-control']) !!}
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
+                </br>
+                <div class="form-group">
+                    <label for="tecnologias">Tecnologias y Habilidades</label>
                     </br>
-                    <div class="form-group">
-                        <label for="">Tecnologias y Habilidades</label>
+                    {{-- Esto lo arreglo con js --}}
+                    {{-- @foreach ($tecnologias as $value)
+                        <label>{!! Form::checkbox('tecnologias[]', $value->id, null, (['class' => 'checked']) ) !!}
+                            {{ $value->name }}
+                        </label>
                         </br>
-                        {{-- Esto lo arreglo con js --}}
-                        @foreach ($candidato->technologies as $tecnologia)
-                            @foreach ($tecnologias as $value)
-                                @if ($tecnologia->id == $value->id)
-                                    <label>{{ Form::checkbox('tecnologias[]', $value->id, true, ['class' => 'name']) }}
-                                        {{ $value->name }}</label>
-                                    </br>
-                                @else
-                                    <div>
-                                        <label>{{ Form::checkbox('tecnologias[]', $value->id, null, ['class' => 'mr-1']) }}
-                                            {{ $value->name }}
-                                        </label>
-                                        </br>
-                                    </div>
-                                @endif
-                            @endforeach
-                        @endforeach
+                    @endforeach --}}
 
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    {{-- <button type="submit" class="btn btn-primary">Guardar</button> --}}
-                    {!! Form::submit('Actualizar Solicitud', ['class' => 'btn btn-primary']) !!}
+
+                    @foreach ($candidato->technologies as $tecnologia)
+                        @foreach ($tecnologias as $value)
+                            @if ($tecnologia->id == $value->id)
+                                <label>{{ Form::checkbox('tecnologias[]', $value->id, true, ['class' => 'name']) }}
+                                    {{ $value->name }}</label>
+                                </br>
+                            @else
+                                <div>
+                                    <label>{{ Form::checkbox('tecnologias[]', $value->id, null, ['class' => 'mr-1']) }}
+                                        {{ $value->name }}
+                                    </label>
+                                    </br>
+                                </div>
+                            @endif
+                        @endforeach
+                    @endforeach
                 </div>
             </div>
-            {!! Form::close() !!}
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                {{-- <button type="submit" class="btn btn-primary">Guardar</button> --}}
+                {!! Form::submit('Actualizar Solicitud', ['class' => 'btn btn-primary']) !!}
+            </div>
         </div>
+        {!! Form::close() !!}
+    </div>
     </div>
 @stop

@@ -9,6 +9,11 @@ class Estado extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+
+    ];
+
     //Relacion uno a muchos
     public function candidates()
     {

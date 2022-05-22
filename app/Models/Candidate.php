@@ -15,14 +15,22 @@ class Candidate extends Model
         'ci',
         'resumen',
         'email',
+        'telefono1',
+        'telefono2',
+        'estado_id',
         'cv',
     ];
 
-    public function request_status()
-    {
-        return $this->belongsTo('App\Models\RequestSatus');
-    }
+    protected $hidden = [
+        'password',
 
+    ];
+
+    public function estado()
+    {
+        return $this->belongsTo('App\Models\Estado');
+    }
+ 
     /*  public function grado()
     {
         return $this->belongsTo('App\Models\Grado');

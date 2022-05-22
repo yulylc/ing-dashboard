@@ -115,7 +115,7 @@
                         </br>
                         {{-- Shows only skills and techs, wanna add chose the experience too --}}
                         @foreach ($tecnologias as $value)
-                            <label>{{ Form::checkbox('tecnologias[]', $value->id, null, ['class' => 'mr-1']) }}
+                            <label>{!! Form::checkbox('tecnologias[]', $value->id, false, ['class' => 'mr-1']) !!}
                                 {{ $value->name }}</label>
                             </br>
                         @endforeach

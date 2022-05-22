@@ -44,7 +44,14 @@
                                     {{ $tecnologia->name }}
                                 @endforeach
                             </td>
-                            <td>{{ $candidate->cv }}</td>
+                            <td>
+                                {{$candidate->cv}}
+                              {{-- <a href="{{ storage_path("app/cv/" . "$candidate->cv") }}">{{$candidate->cv }}</a></td>   --}}
+                              {{-- <a href="{{ Storage::download("storage_path("app/cv/" . "$candidate->cv")") }}">{{$candidate->cv }}</a></td> --}}
+                              {{-- @foreach ($paths as $path)
+                              <a href="{{ Storage::download("path") }}">{{$candidate->cv }}</a>
+                              @endforeach --}}
+                            </td>
                             <td>
                                 <a class="btn btn-info" style="display: inline" href="{{ route('candidatos.edit', $candidate->id) }}">Editar</a>
 

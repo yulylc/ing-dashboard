@@ -22,10 +22,8 @@ class CandidateFactory extends Factory
             //'ci' => $this->faker->(11),
             'email' => $this->faker->unique()->email(),
             'resumen' => $this->faker->text(250),
+            'password' => bcrypt('12345678'),
             
-            
-            //'fechadesolicitud' => $this->faker->date(),
-
         ];
     }
 }
