@@ -18,6 +18,7 @@ class Candidate extends Model
         'telefono1',
         'telefono2',
         'estado_id',
+        'grado_id',
         'cv',
     ];
 
@@ -31,15 +32,17 @@ class Candidate extends Model
         return $this->belongsTo('App\Models\Estado');
     }
  
-    /*  public function grado()
+      public function grado()
     {
         return $this->belongsTo('App\Models\Grado');
-    }     */
+    }     
     //Relacion m-m
     public function technologies()
     {
-        return $this->belongsToMany('App\Models\Technology');
+        return $this->belongsToMany('App\Models\Technology')->withPivot( 'experiencia');
     }
+
+    //agregar ->withPivot('active', 'experiencia')
 
     //Relacion uno a muchos (inversa)
 

@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Candidate;
 use App\Models\Technology;
+use App\Models\Grado;
 use Prophecy\Call\Call;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Pagination\Paginator;
@@ -22,8 +24,6 @@ class CandidateController extends Controller
      */
     public function index()
     {
-         
-
         $candidates = Candidate::paginate(30);
        // $candidates->cv = storage_path("/app/cv" . $candidates['cv']);
        // $path = Storage::url("app/cv" . $candidates['cv']);
@@ -42,8 +42,12 @@ class CandidateController extends Controller
     {
         $tecnologias = Technology::all();
         $candidatos = Candidate::all();
+        $grados = Grado::all();
+      //$grados = Grado::all()->pluck('name');
+
+       
      
-        return view('candidatos.crear', compact('tecnologias', 'candidatos'));
+        return view('candidatos.crear', compact('tecnologias', 'candidatos', 'grados'));
     }
 
     /**
@@ -52,7 +56,7 @@ class CandidateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Grado $grado)
     {
         $request->validate([
             'name' => 'required',
@@ -62,33 +66,24 @@ class CandidateController extends Controller
             'cv' => 'required|mimes:pdf,docx,doc|max:4096',
         ]);
 
-        /* $candidato = Candidate::create($request->all());*/
-        
-
-        /*  if ($request->hasFile('cv')) {
-        $filename = $request->cv->getClientOriginalName();  
-        $candidato['cv'] = $request->file('cv')->storeAs('cv', $filename, 'public');
-        $request->file('cv')->storeAs('cv', $filename);
-        } */
-
-        /*
-        Another way
-        if ($request->hasFile('cv')) {
-        $candidato['cv'] = $request->file('cv')->store('cv1');
-        }
-        */
+        //$grado = Grado::
 
         $candidato = new Candidate();
 
         $candidato->name = $request->name;
         $candidato->apellidos = $request->apellidos;
         $candidato->email = $request->email;
-        $candidato->password = $request->password;
+        $candidato->password = isset($request->password) ? bcrypt($request->password) : $candidato->password;
         $candidato->resumen = $request->resumen;
         $candidato->telefono1 = $request->telefono1;
         $candidato->telefono2 = $request->telefono2;
         $candidato->cv = $request->cv;
+      //  $candidato->grado_id = $grado->id;
+       
+        $candidato->grado_id = Candidate::where('grado_id', '$grado->id')->get();
 
+      //  $candidato->grado_id = $grado->id;
+        
         if ($request->hasFile('cv')) {
 
             //$candidato['cv'] = $request->file('cv')->getClientOriginalName();
@@ -98,8 +93,11 @@ class CandidateController extends Controller
 
         $candidato->save();
         $candidato->technologies()->sync($request->tecnologias); 
+        
+        // return redirect()->route('candidatos.edit', $candidato)
+        //                 ->with('info', 'Solicitud creada con éxito');
 
-        return redirect()->route('candidatos.edit', $candidato)
+        return redirect()->route('candidatos.index')
                          ->with('info', 'Solicitud creada con éxito');
     }
 

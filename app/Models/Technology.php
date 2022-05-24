@@ -16,6 +16,7 @@ class Technology extends Model
     //Relacion m-m
     public function candidates()
     {
-        return $this->belongsToMany('App\Models\Candidate');
+        return $this->belongsToMany('App\Models\Candidate')->withPivot( 'experiencia');
+        //agregar ->withPivot('active', 'experiencia')
     }
 }

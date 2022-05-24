@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Technology;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -26,7 +25,6 @@ class CreateCandidateTechnologyTable extends Migration
             $table->string('experiencia')->nullable(); //de momento nullable
 
             $table->timestamps();
-            
         });
     }
 

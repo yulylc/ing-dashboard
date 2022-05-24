@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Technology;
 use App\Models\Candidate;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
 class TechnologyController extends Controller
@@ -58,6 +59,7 @@ class TechnologyController extends Controller
     {
         $tecnologia = Technology::find($id);
         $candidatos = Candidate::all();
+        
         return view('tecnologias.show', compact('tecnologia', 'candidatos'));
     }
 

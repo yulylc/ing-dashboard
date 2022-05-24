@@ -49,6 +49,15 @@
                         {!! Form::text('email', null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="">Nivel de escolaridad</label>
+                        {{-- {!! Form::select('grado_id[]', null, ['class' => 'form-control']) !!}  --}}
+                         {!! Form::select('grados[]', $grados->pluck('name'),[], array('class'=>'form-control', 'placeholder'=>'Seleccione su nivel de escolaridad')) !!} 
+                    </div> 
+                </div>
+
+
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -105,7 +114,6 @@
                     <div class="form-group">
                         <label for="cv">Subir CV</label>
                         {!! Form::file('cv', ['class' => 'form-control']) !!}
-                        
                     </div>
                 </div> 
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -117,6 +125,10 @@
                         @foreach ($tecnologias as $value)
                             <label>{!! Form::checkbox('tecnologias[]', $value->id, false, ['class' => 'mr-1']) !!}
                                 {{ $value->name }}</label>
+                            {{-- @if (isset($_POST['tecnologias'])) --}}
+                          {{--    <label> {!!Form::select('experiencia', ['1','2','3','4'],  null, ['placeholder' => 'Años de experiencia...'])!!}
+                            </label> --}}
+                           {{-- // @endif --}}
                             </br>
                         @endforeach
                     </div>

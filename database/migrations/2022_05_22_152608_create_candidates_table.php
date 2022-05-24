@@ -25,20 +25,15 @@ class CreateCandidatesTable extends Migration
             $table->string('telefono1')->nullable();
             $table->string('telefono2')->nullable();
             $table->string('cv')->nullable();
-           // $table->unsignedBigInteger('estado_id')->nullable();
-            //$table->string('escolaridad')->nullable();
-            //$table->unsignedBigInteger('grado_id'); 
-            
-           // $table->string('direccion'); //revisar
-            
-            //$table->foreign('grado_id')->references('id')->on('grados')->onDelete('set null');
-            //  $table->foreign('estado_id')
-            //     ->references('id')
-            //     ->on('estados')
-            //     ->onDelete('cascade');
+
+            $table->unsignedBigInteger('estado_id')->nullable();
+            $table->unsignedBigInteger('grado_id')->nullable(); 
+           
+            $table->foreign('grado_id')->references('id')->on('grados')->onDelete('set null');
+            $table->foreign('estado_id')->references('id')->on('estados')->onDelete('cascade');
                 
            // $table->enum('status', ['Pending', 'Wait', 'Active'])->default('Pending');
-          //  $table->foreignId('estado_id')->constrained('estados');
+            //$table->foreignId('estado_id')->constrained('estados');
             $table->timestamps();
         });
     }
