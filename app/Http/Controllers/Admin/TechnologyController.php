@@ -71,7 +71,9 @@ class TechnologyController extends Controller
      */
     public function edit($id)
     {
-       // return view('tecnologias.show');
+        $tecnologia = Technology::find($id);
+
+        return view('tecnologias.editar', compact('tecnologia'));
     }
 
     /**
@@ -83,7 +85,11 @@ class TechnologyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tecnologia = Technology::find($id);
+        $tecnologia->name = $request->name;
+        $tecnologia->save();
+
+        return redirect()->route('tecnologias.index');
     }
 
     /**

@@ -12,14 +12,13 @@
             <strong>{{ session('info') }}</strong>
         </div>
     @endif
-
     <div class="card">
         <div class="card-body">
             {{-- Mi codigo comienza aqui --}}
             {{-- Validation --}}
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
-                    <strong>Ops!</strong> Revise los datos por favor.<br><br>
+                    <strong>Ops!</strong> Revise los datos introducidos.<br />
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -27,7 +26,7 @@
                     </ul>
                 </div>
             @endif
-            {!! Form::model($candidato, ['route' => ['candidatos.update', $candidato->id, 'files' => true], 'method' => 'PUT']) !!}
+            {!! Form::model($candidato, ['route' => ['candidatos.update', $candidato->id], 'method' => 'PUT', 'files' => true]) !!}
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
@@ -45,6 +44,12 @@
                     <div class="form-group">
                         <label for="email">Email</label>
                         {!! Form::text('email', null, ['class' => 'form-control']) !!}
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="grado_id">Nivel de escolaridad</label>
+                        {!! Form::select('grado_id', $grados->toArray(), old('grado_id', $candidato->grado_id), ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Seleccione su nivel de escolaridad']) !!}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -76,29 +81,10 @@
                     <label for="tecnologias">Tecnologias y Habilidades</label>
                     </br>
                     {{-- Esto lo arreglo con js --}}
-                    {{-- @foreach ($tecnologias as $value)
-                        <label>{!! Form::checkbox('tecnologias[]', $value->id, null, (['class' => 'checked']) ) !!}
-                            {{ $value->name }}
-                        </label>
-                        </br>
-                    @endforeach --}}
-
-
-                    @foreach ($candidato->technologies as $tecnologia)
-                        @foreach ($tecnologias as $value)
-                            @if ($tecnologia->id == $value->id)
-                                <label>{{ Form::checkbox('tecnologias[]', $value->id, true, ['class' => 'name']) }}
-                                    {{ $value->name }}</label>
-                                </br>
-                            @else
-                                <div>
-                                    <label>{{ Form::checkbox('tecnologias[]', $value->id, null, ['class' => 'mr-1']) }}
-                                        {{ $value->name }}
-                                    </label>
-                                    </br>
-                                </div>
-                            @endif
-                        @endforeach
+                    @foreach ($tecnologias as $value)
+                        <label>{!! Form::checkbox('tecnologias[]', $value->id, in_array($value->id, $candidatoskills) ? true : false, ['class' => 'name']) !!}
+                            {{ $value->name }}</label>
+                        <br />
                     @endforeach
                 </div>
             </div>

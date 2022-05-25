@@ -15,7 +15,7 @@
 
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
-                    <strong>Ops!</strong> Revise los datos por favor.<br><br>
+                    <strong>Ops!</strong> Revise los datos introducidos.<br/>
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -51,13 +51,12 @@
                 </div>
                 <div class="col-md-6 mb-3">
                     <div class="form-group">
-                        <label for="">Nivel de escolaridad</label>
+                        <label for="grado_id">Nivel de escolaridad</label>
                         {{-- {!! Form::select('grado_id[]', null, ['class' => 'form-control']) !!}  --}}
-                         {!! Form::select('grados[]', $grados->pluck('name'),[], array('class'=>'form-control', 'placeholder'=>'Seleccione su nivel de escolaridad')) !!} 
+                        {{-- {!! Form::select('grados[]', $grados->pluck('name'),[], array('class'=>'form-control', 'placeholder'=>'Seleccione su nivel de escolaridad')) !!} --}}
+                         {!! Form::select('grado_id', $grados, [], array('class'=>'form-control', 'placeholder'=>'Seleccione su nivel de escolaridad')) !!} 
                     </div> 
                 </div>
-
-
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">

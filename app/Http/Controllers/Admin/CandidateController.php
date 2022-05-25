@@ -42,11 +42,9 @@ class CandidateController extends Controller
     {
         $tecnologias = Technology::all();
         $candidatos = Candidate::all();
-        $grados = Grado::all();
-      //$grados = Grado::all()->pluck('name');
-
        
-     
+        $grados = Grado::all()->pluck('name','id');
+
         return view('candidatos.crear', compact('tecnologias', 'candidatos', 'grados'));
     }
 
@@ -56,47 +54,38 @@ class CandidateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Grado $grado)
-    {
+    public function store(Request $request)
+    { //dd($request->all());
         $request->validate([
             'name' => 'required',
             'apellidos' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'cv' => 'required|mimes:pdf,docx,doc|max:4096',
+            'cv' => 'required|file|mimes:pdf,docx,doc|max:4096',
+            
         ]);
-
-        //$grado = Grado::
-
+        
         $candidato = new Candidate();
 
         $candidato->name = $request->name;
         $candidato->apellidos = $request->apellidos;
         $candidato->email = $request->email;
+        $candidato->grado_id = intval($request->grado_id);
         $candidato->password = isset($request->password) ? bcrypt($request->password) : $candidato->password;
         $candidato->resumen = $request->resumen;
         $candidato->telefono1 = $request->telefono1;
         $candidato->telefono2 = $request->telefono2;
         $candidato->cv = $request->cv;
-      //  $candidato->grado_id = $grado->id;
-       
-        $candidato->grado_id = Candidate::where('grado_id', '$grado->id')->get();
-
-      //  $candidato->grado_id = $grado->id;
-        
+               
         if ($request->hasFile('cv')) {
 
-            //$candidato['cv'] = $request->file('cv')->getClientOriginalName();
             $candidato['cv'] = $request->file('cv')->getClientOriginalName();
             $request->file('cv')->storeAs('cv', $candidato['cv']);
         }  
 
         $candidato->save();
         $candidato->technologies()->sync($request->tecnologias); 
-        
-        // return redirect()->route('candidatos.edit', $candidato)
-        //                 ->with('info', 'Solicitud creada con éxito');
-
+    
         return redirect()->route('candidatos.index')
                          ->with('info', 'Solicitud creada con éxito');
     }
@@ -117,12 +106,16 @@ class CandidateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Candidate $candidato)
+    public function edit($id)
     {
+        $candidato = Candidate::find($id);
         $tecnologias = Technology::all();
-        //$candidatoskills = $candidate->technologies()->pluck('name');
+        $candidatoskills = DB::table('candidate_technology')->where('candidate_technology.candidate_id', $id)
+        ->pluck('candidate_technology.technology_id', 'candidate_technology.technology_id')
+        ->all();
+        $grados = Grado::all()->pluck('name','id');
         
-        return view('candidatos.editar', compact('candidato', 'tecnologias'));
+        return view('candidatos.editar', compact('candidato', 'tecnologias','candidatoskills', 'grados' ));
     }
 
     /**
@@ -133,19 +126,21 @@ class CandidateController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Candidate $candidato)
-    {
-        $this->validate($request, [
+    {   //dd($request->all());
+        $request->validate([
             'name' => 'required',
             'apellidos' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'cv' => 'required|mimes:doc,pdf,docx,zip|max:4096',
+            'cv' => 'required|file|mimes:pdf,docx,doc|max:4096',
+            
         ]);
 
         $candidato->name = $request->name;
         $candidato->apellidos = $request->apellidos;
         $candidato->email = $request->email;
-        $candidato->password = $request->password;
+        $candidato->grado_id = intval($request->grado_id);
+        $candidato->password = isset($request->password) ? bcrypt($request->password) : $candidato->password;
         $candidato->resumen = $request->resumen;
         $candidato->telefono1 = $request->telefono1;
         $candidato->telefono2 = $request->telefono2;
@@ -173,7 +168,6 @@ class CandidateController extends Controller
     public function destroy(Candidate $candidato)
     {
         $candidato->delete();
-
         return redirect()->route('candidatos.index')->with('info', 'La solicitud se ha eliminado satisfactoriamente');
     }
 }

@@ -22,7 +22,7 @@ use App\Http\Controllers\FileUploadController;
 |
 */
 
-Route::get('/Admin', function () {
+Route::get('/', function () {
     return view('auth.login');
 });
 
@@ -35,10 +35,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('usuarios', UserController::class);
     Route::resource('candidatos', CandidateController::class);
     Route::resource('tecnologias', TechnologyController::class);
-    //Route::get('fileupload', [FileUploadController::class, 'index']);
-    //Route::post('store', [FileUploadController::class, 'store']);
-    //Route::get('tecnologias/experience', [App\Http\Controllers\TechnologyController::class, 'experience'])->name('tecnologias.experience');
-    //ponerle prefijo admin luego
+   
 });
 
 

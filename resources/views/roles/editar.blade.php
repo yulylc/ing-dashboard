@@ -12,7 +12,7 @@
                     {{-- Validation --}}
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">
-                        <strong>Ops!</strong> Revise los datos por favor.<br><br>
+                        <strong>Ops!</strong> Hay un problema en sus datos.<br/>
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
