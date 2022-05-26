@@ -25,11 +25,11 @@ class CandidateController extends Controller
     public function index()
     {
         $candidates = Candidate::paginate(30);
-       // $candidates->cv = storage_path("/app/cv" . $candidates['cv']);
-       // $path = Storage::url("app/cv" . $candidates['cv']);
+        // $candidates->cv = storage_path("/app/cv" . $candidates['cv']);
+        // $path = Storage::url("app/cv" . $candidates['cv']);
         // $urls = Storage::url('path');
-       // $paths = storage_path("app/cv/" . "$candidates->cv");
-       // Storage::download("paths");
+        // $paths = storage_path("app/cv/" . "$candidates->cv");
+        // Storage::download("paths");
         return view('candidatos.index', compact('candidates'));
     }
 
@@ -42,8 +42,8 @@ class CandidateController extends Controller
     {
         $tecnologias = Technology::all();
         $candidatos = Candidate::all();
-       
-        $grados = Grado::all()->pluck('name','id');
+
+        $grados = Grado::all()->pluck('name', 'id');
 
         return view('candidatos.crear', compact('tecnologias', 'candidatos', 'grados'));
     }
@@ -62,9 +62,9 @@ class CandidateController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'cv' => 'required|file|mimes:pdf,docx,doc|max:4096',
-            
+
         ]);
-        
+
         $candidato = new Candidate();
 
         $candidato->name = $request->name;
@@ -76,18 +76,18 @@ class CandidateController extends Controller
         $candidato->telefono1 = $request->telefono1;
         $candidato->telefono2 = $request->telefono2;
         $candidato->cv = $request->cv;
-               
+
         if ($request->hasFile('cv')) {
 
             $candidato['cv'] = $request->file('cv')->getClientOriginalName();
             $request->file('cv')->storeAs('cv', $candidato['cv']);
-        }  
+        }
 
         $candidato->save();
-        $candidato->technologies()->sync($request->tecnologias); 
-    
+        $candidato->technologies()->sync($request->tecnologias);
+
         return redirect()->route('candidatos.index')
-                         ->with('info', 'Solicitud creada con éxito');
+            ->with('info', 'Solicitud creada con éxito');
     }
 
     /**
@@ -110,12 +110,13 @@ class CandidateController extends Controller
     {
         $candidato = Candidate::find($id);
         $tecnologias = Technology::all();
-        $candidatoskills = DB::table('candidate_technology')->where('candidate_technology.candidate_id', $id)
-        ->pluck('candidate_technology.technology_id', 'candidate_technology.technology_id')
-        ->all();
-        $grados = Grado::all()->pluck('name','id');
-        
-        return view('candidatos.editar', compact('candidato', 'tecnologias','candidatoskills', 'grados' ));
+        $candidatoskills = DB::table('candidate_technology')
+            ->where('candidate_technology.candidate_id', $id)
+            ->pluck('candidate_technology.technology_id', 'candidate_technology.technology_id')
+            ->all();
+        $grados = Grado::all()->pluck('name', 'id');
+
+        return view('candidatos.editar', compact('candidato', 'tecnologias', 'candidatoskills', 'grados'));
     }
 
     /**
@@ -131,9 +132,9 @@ class CandidateController extends Controller
             'name' => 'required',
             'apellidos' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'cv' => 'required|file|mimes:pdf,docx,doc|max:4096',
-            
+            'password' => 'same:confirm-password',
+            'cv' => 'file|mimes:pdf,docx,doc|max:4096',
+
         ]);
 
         $candidato->name = $request->name;
@@ -141,11 +142,12 @@ class CandidateController extends Controller
         $candidato->email = $request->email;
         $candidato->grado_id = intval($request->grado_id);
         $candidato->password = isset($request->password) ? bcrypt($request->password) : $candidato->password;
+       //puedo usar Hash too
         $candidato->resumen = $request->resumen;
         $candidato->telefono1 = $request->telefono1;
         $candidato->telefono2 = $request->telefono2;
         $candidato->cv = $request->cv;
- 
+
         if ($request->hasFile('cv')) {
 
             $candidato['cv'] = $request->file('cv')->getClientOriginalName();

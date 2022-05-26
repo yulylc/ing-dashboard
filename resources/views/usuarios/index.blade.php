@@ -41,7 +41,7 @@
 
                             <td>
                                 @can('Editar Usuario')
-                                <a class="btn btn-info" href="{{ route('usuarios.edit', $usuario->id) }}">Editar</a>
+                                <a class="btn btn-info" href="{{ route('usuarios.edit', $usuario->id) }}"><i class="fas fa-edit"></i></a>
                                 @endcan
 
                                 @can('Eliminar Usuario')

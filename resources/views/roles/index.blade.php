@@ -12,7 +12,7 @@
         <div class="card-body">
             {{-- Control de errores --}}
             @can('crear-rol')
-                <a class="fas fa-plus" href="{{ route('roles.create') }}"> Crear Rol</a>
+                <a class="btn btn-info" href="{{ route('roles.create') }}"> <i class ="fas fa-plus"></i></a>
             @endcan
 
             <table class="table table-striped mt-2">

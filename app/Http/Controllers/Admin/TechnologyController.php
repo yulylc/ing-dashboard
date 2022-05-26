@@ -19,7 +19,7 @@ class TechnologyController extends Controller
     {
         $tecnologias = Technology::all();
 
-        return view('tecnologias.index',compact('tecnologias'));
+        return view('tecnologias.index', compact('tecnologias'));
     }
 
     /**
@@ -44,9 +44,11 @@ class TechnologyController extends Controller
         $this->validate($request, [
             'name' => 'required',
         ]);
-        
+
         $tecnologia = Technology::create($request->all());
-        return redirect()->route('tecnologias.edit', $tecnologia)->with('info','Solicitud creada con éxito');
+
+        return redirect()->route('tecnologias.edit', $tecnologia)
+            ->with('info', 'Solicitud creada con éxito');
     }
 
     /**
@@ -57,9 +59,10 @@ class TechnologyController extends Controller
      */
     public function show($id)
     {
+        //En esta vista muestro una tecnologia y los usuarios que la dominan
         $tecnologia = Technology::find($id);
         $candidatos = Candidate::all();
-        
+
         return view('tecnologias.show', compact('tecnologia', 'candidatos'));
     }
 
@@ -102,8 +105,5 @@ class TechnologyController extends Controller
     {
         Technology::find($id)->delete();
         return redirect()->route('tecnologias.index');
-       
-   
     }
-
 }
